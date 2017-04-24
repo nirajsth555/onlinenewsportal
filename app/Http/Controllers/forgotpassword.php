@@ -38,8 +38,13 @@ class forgotpassword extends Controller
            	DB::select("UPDATE users SET reset_token='$token' WHERE email='$email'");
            	$msg="Reset code has been sent to your e-mail address. Please enter the Provided reset code to reset your password ";
            	echo $msg;
-           	mail($email,"Password Reset","Please enter given code to reset your password",$msg);
-           	return view('admin.password_reset');		
+
+           	if(mail($email,"Password Reset","Please enter given code to reset your password",$msg))
+           	return view('admin.password_reset');	
+            else{
+              echo "failed msg";
+            }
+
 
            }
 
